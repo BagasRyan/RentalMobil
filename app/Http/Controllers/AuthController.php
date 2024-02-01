@@ -39,6 +39,14 @@ class AuthController extends Controller
 
     public function registerStore(Request $request){
 
+        $request->validate([
+            'username' => 'required|min:5',
+            'password' => 'required|min:5',
+            'nama' => 'required',
+            'telepon' => 'required|numeric',
+            'sim' => 'required'
+        ]);
+
         $password = Hash::make($request->password);
 
         DB::table('users')->insert([

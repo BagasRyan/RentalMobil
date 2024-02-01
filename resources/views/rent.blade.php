@@ -15,16 +15,14 @@
                 <form class="row g-3" action="{{ route('rented.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                 <div class="col-12">
-                    <label for="inputLastName1" class="form-label">Tanggal mulai disewakan</label>
+                    <label for="nama" class="form-label">Nama Anda</label>
                      <div class="input-group">
-                         <input type="date" class="form-control border-start-0" id="inputLastName1" name="mulai" />
+                         <input type="text" class="form-control border-start-0" id="nama" name="nama" value="{{ $namaUsers }}" />
                         </div>
                     </div>
                         <div class="col-12">
-                            <label for="inputPhoneNo" class="form-label">Tanggal berakhir disewakan</label>
-                            <div class="input-group">
-                                <input type="date" class="form-control border-start-0" id="inputPhoneNo" name="berakhir" />
-                            </div>
+                            <label for="alamat" class="form-label">Alamat rumah anda</label>
+                                <textarea class="form-control" id="alamat" style="height: 500px;" name="alamat"></textarea>
                     </div>
                             <div class="input-group">
                                 <input type="hidden" class="form-control border-start-0" id="inputPhoneNo" name="id" value="{{ $id }}" />
@@ -33,8 +31,6 @@
                 </form>
                 </div>
             </div>                          
-            <div class="col-12">
-                </div>
             </div>
         </div>
 </div>

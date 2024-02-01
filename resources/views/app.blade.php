@@ -149,9 +149,9 @@
       <!--end navigation-->
 
       <div class="page-wrapper">
-
-      @yield('content')
-
+        <div class="page-content">
+          @yield('content')
+        </div>
       </div>
 
       <!--start overlay-->

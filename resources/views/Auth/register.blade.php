@@ -38,28 +38,53 @@
                                             @csrf
                                             <div class="col-12">
                                                 <label for="username" class="form-label">Username</label>
-                                                <input type="text" name="username" class="form-control" id="username">
+                                                <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" id="username">
+                                                @error('username')
+                                                <div class="invalid-feedback">
+                                                {{ $message }}
+                                                </div>
+                                                @enderror
                                             </div>
                                             <div class="col-12">
                                                 <label for="inputChoosePassword" class="form-label">Enter Password</label>
                                                 <div class="input-group" id="show_hide_password">
-                                                    <input type="password" name="password" class="form-control border-end-0" id="inputChoosePassword"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
+                                                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror border-end-0" id="inputChoosePassword"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
                                                 </div>
+                                                @error('password')
+                                                <div class="invalid-feedback">
+                                                {{ $message }}
+                                                </div>
+                                                @enderror
                                             </div>
 
                                             <div class="col-12">
                                                 <label for="nama" class="form-label">Nama</label>
-                                                <input type="text" name="nama" class="form-control" id="nama">
+                                                <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama" value="{{ old('nama') }}">
+                                                @error('nama')
+                                                <div class="invalid-feedback">
+                                                {{ $message }}
+                                                </div>
+                                                @enderror
                                             </div>
                                            
                                             <div class="col-12">
                                                 <label for="Telepon" class="form-label">No Telepon</label>
-                                                <input type="text" name="telepon" class="form-control" id="Telepon">
+                                                <input type="text" name="telepon" class="form-control @error('telepon') is-invalid @enderror" value="{{ old('telepon') }}" id="Telepon">
+                                                @error('telepon')
+                                                <div class="invalid-feedback">
+                                                {{ $message }}
+                                                </div>
+                                                @enderror
                                             </div>
 
                                             <div class="col-12">
                                                 <label for="sim" class="form-label">No SIM</label>
-                                                <input type="text" name="sim" class="form-control" id="sim">
+                                                <input type="text" name="sim" class="form-control @error('sim') is-invalid @enderror" value="{{ old('sim') }}" id="sim">
+                                                @error('sim')
+                                                <div class="invalid-feedback">
+                                                {{ $message }}
+                                                </div>
+                                                @enderror
                                             </div>
                                             
                                             <div class="col-12">

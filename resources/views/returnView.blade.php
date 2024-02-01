@@ -2,13 +2,17 @@
 
 @section('content')
 <div class="container mt-4">
-    <!-- <a href="{{ route('dashboard') }}" class="btn btn-sm btn-primary mb-4">Kembali</a> -->
 <div class="card border-top border-0 border-4">
     <div class="card-body p-5">
-       <h5>Terima Kasih telah memesan mobil di aplikasi kami, mobil anda akan segera tiba di alamat rumah anda</h5>
-      <div class="card-title d-flex align-items-center">
-          @forelse($mobil as $data)
-            <div class="card">
+       <!-- <a href="/detail/{{ $id }}" class="btn btn-sm btn-primary mb-4">Kembali</a> -->
+     <hr>
+             <hr>
+             <div class="card">
+                <div class="card-body">
+                <form class="row g-3" action="{{ Route('rent.return.store') }}" method="POST">
+                    @csrf
+                    <div class="card">
+                        <h4>Kembalikan mobil ini?</h4>
                 <div class="card-body">
                 <img src="{{ asset('storage/mobil/'. $data->gambar) }}" class="img-fluid" border="1"> 
                 <hr>
@@ -25,13 +29,18 @@
                         <td><p>Plat Mobil:</p></td>
                         <td><p>{{ $data->no_plat }}</p></td>
                         </tr>
+                        <tr>
+                            <td><p>Jumlah waktu sewa: </p></td>
+                            <td><p>{{ $jumlahWaktuSewa }}</p></td>
+                        </tr>
+                        <input type="hidden" name="id" value="{{ $data->id }}">
                     </table>
-                    <a href="{{ Route('rent.return.view', $data->id) }}" class="btn btn-primary btn-sm">Kembalikan</a>
                 </div>
             </div>
-            @empty
-            <h3>Anda belum sewa mobil apapun</h3>
-            @endforelse
+            <button type="submit" class="btn btn-primary px-5">Submit</button>
+                </form>
+                </div>
+            </div>                          
             </div>
         </div>
 </div>

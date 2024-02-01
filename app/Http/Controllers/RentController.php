@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
+use File;
 use Session;
 
 class RentController extends Controller
@@ -21,6 +23,14 @@ class RentController extends Controller
     }
 
     public function rentStore(Request $request){
+
+        $request->validate([
+            'gambar' => 'required|mimes:jpg,png,jpeg',
+            'merk' => 'required',
+            'model' => 'required',
+            'plat' => 'required',
+            'tarif' => 'required|numeric'
+        ]);
 
         $gambar = $request->gambar; 
         $namaGambar = $gambar->getClientOriginalName(); 
@@ -56,7 +66,11 @@ class RentController extends Controller
     }
 
     public function rented($id){
-        return view('rent', compact('id'));
+
+        $idUsers = DB::table('mobil')->where('id', $id)->value('users_id');
+        $namaUsers = DB::table('users')->where('id', $idUsers)->value('nama');
+    
+        return view('rent', compact('id', 'namaUsers'));
     }
 
     public function rentedStore(Request $request){
@@ -70,8 +84,8 @@ class RentController extends Controller
             DB::table('tersewa')->insert([
                 'id_mobil' => $id,
                 'users_id' => Auth::user()->id,
-                'tanggal_disewakan' => $request->mulai,
-                'tanggal_berakhir' => $request->berakhir
+                'alamat' => $request->alamat,
+                'tanggal_disewakan' => $request->mulai
             ]);
     
             DB::table('mobil')->where('id', $id)->update([
@@ -91,6 +105,12 @@ class RentController extends Controller
 
     public function delete($id){
 
+        //ambil nama gambar berdasarkan id
+        $mobil = DB::table('mobil')->where('id', $id)->value('gambar');
+
+
+        //hapus gambar dan data di database dan di direktori
+        File::delete('storage/mobil/'.$mobil);
         DB::table('mobil')->where('id', $id)->delete();
 
         return redirect()->back();
@@ -110,6 +130,51 @@ class RentController extends Controller
         
 
         return view('myCar', compact('mobil'));
+    }
+
+    public function returnView($id){
+        $data = DB::table('mobil')->where('id', $id)->first();
+
+        //ambil kolom tanggal_disewakan berdasarkan $id (id mobil)
+        $tanggalDisewa = DB::table('tersewa')->where('id_mobil', $id)->value('tanggal_disewakan');
+
+        //menghitung berapa hari mobil disewa
+        $waktu = Carbon::parse($tanggalDisewa);
+        $jumlahWaktuSewa = $waktu->diffForHumans();
+
+        // $jam = Carbon::parse('2022-12-12 17:00:00');
+        // dd($jam->diffForHumans());
+
+        return view('returnView', compact('id', 'data', 'jumlahWaktuSewa'));
+    }
+
+    public function returnStore(Request $request){
+        $idMobil = $request->id;
+
+
+
+        try{
+
+        DB::beginTransaction();
+
+        // DB::table('tersewa')->where('id_mobil', $idMobil)->insert([
+        //     'tanggal_berakhir' => Carbon::now()
+        // ]);
+
+        DB::table('mobil')->where('id', $idMobil)->update([
+            'stok' => 'Tersedia'
+        ]);
+
+        DB::table('tersewa')->where('id_mobil', $idMobil)->delete();
+
+        DB::commit();
+
+        return redirect()->route('dashboard');
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return redirect()->back();
+         }
     }
 
 }
