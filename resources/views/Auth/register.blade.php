@@ -51,9 +51,9 @@
                                                     <input type="password" name="password" class="form-control @error('password') is-invalid @enderror border-end-0" id="inputChoosePassword"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
                                                 </div>
                                                 @error('password')
-                                                <div class="invalid-feedback">
+                                                <p class="text-danger">
                                                 {{ $message }}
-                                                </div>
+                                                </p>
                                                 @enderror
                                             </div>
 

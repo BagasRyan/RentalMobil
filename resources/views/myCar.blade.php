@@ -33,7 +33,8 @@
             <img src="{{ asset('storage/mobil/'. $data->gambar) }}" class="img-fluid">
             <div class="d-flex justify-content-between align-items-center mt-4">
                         <div>
-                            <a href="/delete/{{ $data->id }}" class="btn btn-sm btn-outline-danger" title="Hapus"><i class="bx bx-trash"></i></a>
+                          <button onclick="onDelete(this)" id="{{ $data->id }}" class="btn btn-danger">Hapus</button>
+                            <!-- <a href="/delete/{{ $data->id }}" class="btn btn-sm btn-outline-danger" title="Hapus"><i class="bx bx-trash"></i></a> -->
                         </div>
                 </div>
           </div>
@@ -45,3 +46,38 @@
           @endforelse
 </div>
 @endsection
+@push('script')
+<script>
+function onDelete(data){
+  const id = data.id;
+  const CSRF_TOKEN = $('meta[name="csrf-token"]').attr("content");
+  Swal.fire({
+    title: 'Apakah anda yakin?',
+    text: 'Data ini tidak bisa dikembalikan!!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Hapus',
+    confirmButtonColor: '#d33',
+    cancelButtonText: 'Tidak'
+  }).then(function(result){
+    $.ajax({
+      url: `/delete/${id}`,
+      method: 'POST',
+      data: {
+        _token: CSRF_TOKEN,
+      }, success: function(){
+        Swal.fire({
+          title: 'Berhasil',
+          text: 'Data berhasil dihapus',
+          icon: 'success'
+        }).then(function(result){
+          if(result.isConfirmed){
+            window.location.reload();
+          }
+        });
+      } 
+    });
+  });
+}
+</script>
+@endpush

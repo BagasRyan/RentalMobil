@@ -30,6 +30,14 @@ class RentController extends Controller
             'model' => 'required',
             'plat' => 'required',
             'tarif' => 'required|numeric'
+        ],[
+            'gambar.required' => 'Bagian ini wajib di isi!!',
+            'merk.required' => 'Bagian ini wajib di isi!!',
+            'model.required' => 'Bagian ini wajib di isi!!',
+            'plat.required' => 'Bagian ini wajib di isi!!',
+            'tarif.required' => 'Bagian ini wajib di isi!!',
+            'gambar.mimes' => 'Gambar wajib berformat .jpg, .png, .jpeg',
+            'tarif.numeric' => 'Tarif harus berupa angka!!'
         ]);
 
         $gambar = $request->gambar; 
@@ -46,7 +54,7 @@ class RentController extends Controller
             'tarif' => $request->tarif
         ]);
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with('create', 'Data berhasil ditambahkan');
     }
 
     public function detail($id){
@@ -95,7 +103,7 @@ class RentController extends Controller
             
             DB::commit();
         
-            return redirect()->route('dashboard');
+            return redirect()->route('dashboard')->with('rent', 'Mobil anda akan segera tiba!');
             } catch (\Exception $e) {
                 DB::rollback();
 

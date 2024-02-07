@@ -32,6 +32,6 @@ Route::get('/rent/{id}', 'RentController@rented')->name('rented.view')->middlewa
 Route::post('/rented', 'RentController@rentedStore')->name('rented.store')->middleware('auth');
 Route::get('/myRentCar', 'RentController@myRentCar')->name('my.rent.car')->middleware('auth');
 Route::get('/myCar', 'RentController@myCar')->name('my.car')->middleware('auth');
-Route::get('/delete/{id}', 'RentController@delete')->name('delete')->middleware('auth');
+Route::post('/delete/{id}', 'RentController@delete')->name('delete')->middleware('auth');
 Route::get('/rent/return/{id}', 'RentController@returnView')->name('rent.return.view')->middleware('auth');
 Route::post('/rent/return/store', 'RentController@returnStore')->name('rent.return.store')->middleware('auth');

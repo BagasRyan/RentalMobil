@@ -6,9 +6,7 @@
     <div class="card-body p-5">
        <a href="{{ route('dashboard') }}" class="btn btn-sm btn-primary mb-4">Kembali</a>
       <div class="card-title d-flex align-items-center">
-        <h5 class="mb-0">Profil Anda</h5>
  </div>
-     <hr>
              <hr>
              <div class="card">
                 <div class="card-body">

@@ -5,7 +5,8 @@
     <!-- <a href="{{ route('dashboard') }}" class="btn btn-sm btn-primary mb-4">Kembali</a> -->
 <div class="card border-top border-0 border-4">
     <div class="card-body p-5">
-       <h5>Terima Kasih telah memesan mobil di aplikasi kami, mobil anda akan segera tiba di alamat rumah anda</h5>
+        <h4>Mobil sewaan anda</h4>
+        <hr>
       <div class="card-title d-flex align-items-center">
           @forelse($mobil as $data)
             <div class="card">

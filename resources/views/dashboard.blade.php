@@ -1,27 +1,6 @@
 @extends('app')
 
 @section('content')
-<!-- <div class="album py-3 bg-body-tertiary">
-    <div class="container">
-    <div class="album bg-body-tertiary p-4">
-        @forelse($database as $data)
-            <div class="card shadow-sm" style="width: 18rem; display: inline-block; margin-right: 10px;">
-                <img src="{{ asset('storage/mobil/'. $data->gambar) }}" width="100%" height="225">
-                <div class="card-body">
-                    <p class="card-text">{{ $data->merk }}</p>
-                    <p class="card-text">Rp.{{ $data->tarif }}</p>
-                    <h6 class="card-text">{{ $data->stok }}</h6>
-                </div>
-                <button class="btn">
-                    <a href="{{ Route('detail', $data->id) }}" class="btn btn-outline-secondary" title="Lihat">Lihat detail</a>
-                </button>
-            </div>
-        @empty
-            <h1>Kosong</h1>
-        @endforelse
-    </div>
-    </div>
-</div> -->
 
 <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 product-grid">
     @forelse($database as $data)
@@ -44,3 +23,24 @@
     @endforelse
 </div>
 @endsection
+@push('script')
+@if(session('create'))
+<script>
+    Swal.fire({
+        title: 'Berhasil',
+        text: '{{ session('create') }}',
+        icon: 'success'
+    });
+</script>
+@endif
+
+@if(session('rent'))
+<script>
+    Swal.fire({
+        title: 'Terima Kasih',
+        text: '{{ session('rent') }}',
+        icon: 'success'
+    });
+</script>
+@endif
+@endpush
